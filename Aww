@@ -1067,8 +1067,6 @@ playMacroQueue = function(macroName)
         StatusLabel.Text = string.format("Status: Playback Selesai! (%s)", selectedMacroFile)
         isPlaying = false
 
-        -- [FIX CRUCIAL] Apabila Multi-Macro aktif, ijinkan auto-reset session
-        -- agar map/raid berikutnya siap menjalankan makro urutan berikutnya.
         if isMultiMacroEnabled then
             task.wait(2)
             hasAutoPlayedThisSession = false
@@ -1215,6 +1213,7 @@ SpeedBtn.MouseButton1Click:Connect(function()
     elseif currentSpeedMultiplier == 2 then currentSpeedMultiplier = 3
     elseif currentSpeedMultiplier == 3 then currentSpeedMultiplier = 4
     elseif currentSpeedMultiplier == 4 then currentSpeedMultiplier = 5
+    elseif currentSpeedMultiplier == 5 then currentSpeedMultiplier = 6
     else currentSpeedMultiplier = 1 end
     
     SpeedBtn.Text = "Speed: " .. currentSpeedMultiplier .. "x"
@@ -1521,7 +1520,6 @@ end)
 -- ==========================================
 
 local function isMatchActuallyStarted()
-    -- Cek ketersediaan map/stage fisik di Workspace
     local hasMapContainer = Workspace:FindFirstChild("Towers") 
                          or Workspace:FindFirstChild("Map") 
                          or Workspace:FindFirstChild("Board") 
@@ -1579,7 +1577,6 @@ task.spawn(function()
                         macroToPlay = multiMacroQueue[currentMultiMacroIndex]
                         logConsole(string.format("[MULTI MACRO] Menjalankan Makro (#%d dari %d): %s", currentMultiMacroIndex, #multiMacroQueue, macroToPlay))
                         
-                        -- Persiapkan urutan berikutnya ke config.json
                         local nextIndex = currentMultiMacroIndex + 1
                         if nextIndex > #multiMacroQueue then
                             nextIndex = 1
