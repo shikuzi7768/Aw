@@ -1236,9 +1236,11 @@ AutoVoteDiffBtn.MouseButton1Click:Connect(function()
     saveConfigToFile()
 end)
 
+-- UPDATED: Auto Summon dengan tambahan x1000
 AutoSummonBtn.MouseButton1Click:Connect(function()
     if autoSummonAmount == 0 then autoSummonAmount = 10
     elseif autoSummonAmount == 10 then autoSummonAmount = 50
+    elseif autoSummonAmount == 50 then autoSummonAmount = 1000
     else autoSummonAmount = 0 end
     
     if autoSummonAmount > 0 then
@@ -1251,10 +1253,12 @@ AutoSummonBtn.MouseButton1Click:Connect(function()
     saveConfigToFile()
 end)
 
+-- UPDATED: Auto Premium Summon dengan tambahan x1000
 AutoPremSummonBtn.MouseButton1Click:Connect(function()
     if autoPremSummonAmount == 0 then autoPremSummonAmount = 1
     elseif autoPremSummonAmount == 1 then autoPremSummonAmount = 10
     elseif autoPremSummonAmount == 10 then autoPremSummonAmount = 50
+    elseif autoPremSummonAmount == 50 then autoPremSummonAmount = 1000
     else autoPremSummonAmount = 0 end
     
     if autoPremSummonAmount > 0 then
@@ -1464,7 +1468,7 @@ local function executeMapVote()
             logConsole(string.format("Auto Vote Map dikirim via Slot/Pilihan: %s", tostring(targetChoice)))
         else
             voteMapRemote:FireServer(mapInput)
-            logConsole("Auto Vote Map dikirim via Nama String: " .. mapInput)
+            logConsole("Auto Vote Map dikirim via Nama String: " + mapInput)
         end
     end)
 end
